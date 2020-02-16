@@ -34,7 +34,7 @@ app.post('/register', (req, res) => {
 app.post('/login', function (req, res) {
 
     User.findOne({
-        roll_num: req.body.roll_num
+        email: req.body.email
     }, async function (err, doc) {
         if (err) return res.status(500).send({
             message: err.toString()
@@ -57,6 +57,31 @@ app.post('/login', function (req, res) {
             auth: true,
             name: doc.name
         });
+    });
+
+});
+
+app.post('/viewUser', (req, res) => {
+
+    console.log(req);
+    var obj = req.body;
+    console.log(obj);
+    User.findOne({
+        email: req.body.email
+    }, async function (err, user) {
+        
+        if (err) return res.status(500).send({
+            message: err.toString()
+        });
+        if (!user) return res.status(400).send({
+            message: 'Invalid Email'
+        });
+
+        if (user) {
+            res.status(200).send({
+                data: user
+            });
+        }
     });
 
 });

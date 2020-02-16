@@ -13,6 +13,11 @@ var UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    is_faculty: {
+        type: Number,
+        required: true
+
+    },
 
     email: {
         type: String,
@@ -23,6 +28,20 @@ var UserSchema = new mongoose.Schema({
         type: Number,
         required: true
 
+    },
+    cgpa: {
+        type: Number,
+        
+
+    },
+    degree: {
+        type: String,
+        
+
+    },
+    branch: {
+        type: String,
+        
     },
    
 });
