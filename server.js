@@ -4,6 +4,8 @@ const port = 3100
 var mongoose = require('./db');
 var bodyParser = require('body-parser');
 var User = require('./models/user.js');
+var Course = require('./models/course.js');
+var admin = require('./models/admin.js');
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -13,12 +15,49 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => res.send('Quizapp Backend'))
 
-app.post('/register', (req, res) => {
+app.post('/register_user', (req, res) => {
 
     console.log(req);
     var obj = req.body;
     console.log(obj);
     User.create(obj).then((doc) => {
+        console.log(doc);
+        res.status(200).send({
+            data: doc
+        });
+    }).catch((err) => {
+        res.status(500).send({
+            message: err.toString()
+        });
+    })
+
+});
+
+app.post('/add_class', (req, res) => {
+
+    console.log(req);
+    var obj = req.body;
+    console.log(obj);
+    clas.create(obj).then((doc) => {
+        console.log(doc);
+        res.status(200).send({
+            data: doc
+        });
+    }).catch((err) => {
+        res.status(500).send({
+            message: err.toString()
+        });
+    })
+
+});
+
+
+app.post('/add_course', (req, res) => {
+
+    console.log(req);
+    var obj = req.body;
+    console.log(obj);
+    Course.create(obj).then((doc) => {
         console.log(doc);
         res.status(200).send({
             data: doc
@@ -87,6 +126,46 @@ app.post('/viewUser', (req, res) => {
 });
 
 
+app.post('/update_mark', (req, res) => {
+
+    console.log(req);
+    var obj = req.body;
+    console.log(obj);
+    query={
+        roll_num:obj.roll_num
+    }
+    newdata={
+        mark:obj.mark
+    }
+    User.findOneAndUpdate(query, newdata, {upsert: true}, function(err, doc) {
+        if (err) return res.send(500, {error: err});
+        return res.send('Succesfully saved new mark.'+obj.mark);
+    });
+});
+    
+
+app.post('/update_quiz_id', (req, res) => {
+
+    console.log(req);
+    var obj = req.body;
+    console.log(obj);
+    query={
+        roll_num:obj.roll_num
+    }
+    newdata={
+        mark:obj.quiz_id
+    }
+    User.findOneAndUpdate(query, newdata, {upsert: true}, function(err, doc) {
+        if (err) return res.send(500, {error: err});
+        return res.send('Succesfully saved new quiz_id'+obj.mark);
+    });
+});
+    
 
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+    
+    
+
+
+
+app.listen(port, () => console.log(`QuizApp listening on port ${port}!`))

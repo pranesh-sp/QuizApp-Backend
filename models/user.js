@@ -29,11 +29,6 @@ var UserSchema = new mongoose.Schema({
         required: true
 
     },
-    cgpa: {
-        type: Number,
-        
-
-    },
     degree: {
         type: String,
         
@@ -43,6 +38,14 @@ var UserSchema = new mongoose.Schema({
         type: String,
         
     },
+    quiz_id: {
+        type: String,
+        
+    },
+    mark: {
+        type: Number,
+        
+    }
    
 });
 mongoose.model('User', UserSchema);

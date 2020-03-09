@@ -2,7 +2,7 @@
   "name": "quizapp-backend",
   "version": "1.0.0",
   "description": "Software engineering prokect\u001b[D\u001b[D\u001b[j0\u001bek\u001b[C",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "nodemon server.js"
   },
