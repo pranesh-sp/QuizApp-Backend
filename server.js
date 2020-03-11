@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var User = require('./models/user.js');
 var Course = require('./models/course.js');
 var admin = require('./models/admin.js');
+var question = require('./models/question.js');
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -162,6 +163,60 @@ app.post('/update_quiz_id', (req, res) => {
 });
     
 
+app.post('/add_question', (req, res) => {
+
+    console.log(req);
+    var obj = req.body;
+    console.log(obj);
+    question.create(obj).then((doc) => {
+        console.log(doc);
+        res.status(200).send({
+            data: doc,
+            message:"question addded succesfully"
+        });
+    }).catch((err) => {
+        res.status(500).send({
+            message: err.toString()
+        });
+    })
+
+});
+
+app.post('/getAllQuestions', (req, res) => {
+
+    console.log(req);
+    var obj = req.body;
+    console.log(obj);
+    question.find({
+        quiz_id: obj.quiz_id
+    }, async function (err, questions) {
+        
+        if (err) return res.status(500).send({
+            message: err.toString()
+        });
+        if (!questions) return res.status(400).send({
+            message: 'Invalid quiz id'
+        });
+
+        if (questions) {
+            var n=0;
+            question.find({
+                quiz_id: req.body.quiz_id
+
+            }).count(function(err, count){
+                
+                console.log("Number of questions: ", count );
+                res.status(200).send({
+                    data: questions,
+                    number:count
+                });
+            }).catch(console.log);
+
+            
+        }
+    });
+
+});
 
     
     
