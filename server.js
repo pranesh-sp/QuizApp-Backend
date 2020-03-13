@@ -14,7 +14,8 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => res.send('Quizapp Backend'))
+app.get('/', (req, res) => res.send({status:'200',
+                                    message:'Quizapp Backend'}))
 
 app.post('/register_user', (req, res) => {
 
@@ -223,4 +224,5 @@ app.post('/getAllQuestions', (req, res) => {
 
 
 
-app.listen(port, () => console.log(`QuizApp listening on port ${port}!`))
+module.exports=app.listen(port, () => console.log(`QuizApp listening on port ${port}!`))
+

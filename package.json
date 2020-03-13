@@ -4,7 +4,8 @@
   "description": "Software engineering prokect\u001b[D\u001b[D\u001b[j0\u001bek\u001b[C",
   "main": "server.js",
   "scripts": {
-    "test": "nodemon server.js"
+    "run": "nodemon server.js",
+    "test": "mocha --recursive --exit"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,12 @@
     "mongodb": "^3.5.2",
     "mongoose": "^5.8.11",
     "nodemon": "^2.0.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.0",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2",
+    "chai-http": "^2.0.1"
   }
 }
