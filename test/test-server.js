@@ -116,10 +116,11 @@ describe('/POST update_quiz_id ', () => {
 
 
 describe('/POST update_mark ', () => {
-    it('should return error when invald roll_num is passed', (done) => {
+    it('should return error when empty mark field is passed', (done) => {
        
 
-        qid= {roll_num:"abc"}
+        qid= {roll_num:"abc",
+                }
 
       chai.request(app)
           .post('/update_mark')
@@ -138,26 +139,5 @@ describe('/POST update_mark ', () => {
 
 });
 
-describe('/POST getAllQuestions ', () => {
-    it('should return success when correct quiz_id is passed and should return an array of objects', (done) => {
-       
 
-        qid= {quiz_id:"1"}
-
-      chai.request(app)
-          .post('/getAllQuestions')
-          .send(qid)
-          .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                // res.body.should.have.property('message')
-                
-            done();
-          });
-          
-    });
-
-
-
-});
 

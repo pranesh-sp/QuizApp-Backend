@@ -122,10 +122,16 @@ app.post('/update_mark', (req, res) => {
     newdata={
         mark:obj.mark
     }
+    if(!obj.mark){
+        return res.send(500, {error: "mark field empty"});
+    }
+    else{
     User.findOneAndUpdate(query, newdata, {upsert: false}, function(err, doc) {
+        
         if (sizeof(doc)==0) return res.send(500, {error: err});
         else return res.send('Succesfully saved new mark.'+obj.mark);
     });
+}
 });
     
 
