@@ -36,24 +36,6 @@ app.post('/register_user', (req, res) => {
 
 });
 
-app.post('/add_class', (req, res) => {
-
-    // console.log(req);
-    var obj = req.body;
-    // console.log(obj);
-    clas.create(obj).then((doc) => {
-        // console.log(doc);
-        res.status(200).send({
-            data: doc
-        });
-    }).catch((err) => {
-        res.status(500).send({
-            message: err.toString()
-        });
-    })
-
-});
-
 
 app.post('/add_course', (req, res) => {
 
@@ -140,9 +122,9 @@ app.post('/update_mark', (req, res) => {
     newdata={
         mark:obj.mark
     }
-    User.findOneAndUpdate(query, newdata, {upsert: true}, function(err, doc) {
-        if (err) return res.send(500, {error: err});
-        return res.send('Succesfully saved new mark.'+obj.mark);
+    User.findOneAndUpdate(query, newdata, {upsert: false}, function(err, doc) {
+        if (sizeof(doc)==0) return res.send(500, {error: err});
+        else return res.send('Succesfully saved new mark.'+obj.mark);
     });
 });
     
@@ -159,7 +141,7 @@ app.post('/update_quiz_id', (req, res) => {
         mark:obj.quiz_id
     }
     User.findOneAndUpdate(query, newdata, {upsert: true}, function(err, doc) {
-        if (err) return res.send(500, {error: err});
+        if (sizeof(doc)==0) return res.send(500, {error: err});
         return res.send('Succesfully saved new quiz_id'+obj.mark);
     });
 });
