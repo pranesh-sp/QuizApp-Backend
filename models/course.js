@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var CourseSchema = new mongoose.Schema({
     Course_name:{
-        type: String
+        type: String,
+        required: true
        
     },
     course_code:{
@@ -11,7 +12,8 @@ var CourseSchema = new mongoose.Schema({
     },
     
     mentor:{
-        type: String
+        type: String,
+        required:true
         
     },
    

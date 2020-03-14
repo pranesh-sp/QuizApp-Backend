@@ -68,5 +68,30 @@ describe('/POST getAllQuestions  ', () => {
 
 
 
+describe('/POST add_course ', () => {
+    it('should return error when empty data is passed', (done) => {
+       
+
+        qid= {}
+
+      chai.request(app)
+          .post('/add_course')
+          .send(qid)
+          .end((err, res) => {
+                res.should.have.status(500);
+                // res.body.should.be.a('object');
+                // res.body.should.have.property('message')
+                
+            done();
+          });
+          
+    });
+
+
+
+});
+
+
+
 
 
