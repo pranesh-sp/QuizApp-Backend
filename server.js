@@ -7,6 +7,7 @@ var User = require('./models/user.js');
 var Course = require('./models/course.js');
 var admin = require('./models/admin.js');
 var question = require('./models/question.js');
+var sizeof = require('object-sizeof')
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -19,9 +20,9 @@ app.get('/', (req, res) => res.send({status:'200',
 
 app.post('/register_user', (req, res) => {
 
-    console.log(req);
+    // console.log(req);
     var obj = req.body;
-    console.log(obj);
+    // console.log(obj);
     User.create(obj).then((doc) => {
         console.log(doc);
         res.status(200).send({
@@ -37,11 +38,11 @@ app.post('/register_user', (req, res) => {
 
 app.post('/add_class', (req, res) => {
 
-    console.log(req);
+    // console.log(req);
     var obj = req.body;
-    console.log(obj);
+    // console.log(obj);
     clas.create(obj).then((doc) => {
-        console.log(doc);
+        // console.log(doc);
         res.status(200).send({
             data: doc
         });
@@ -56,11 +57,11 @@ app.post('/add_class', (req, res) => {
 
 app.post('/add_course', (req, res) => {
 
-    console.log(req);
+    // console.log(req);
     var obj = req.body;
-    console.log(obj);
+    // console.log(obj);
     Course.create(obj).then((doc) => {
-        console.log(doc);
+        // console.log(doc);
         res.status(200).send({
             data: doc
         });
@@ -104,9 +105,9 @@ app.post('/login', function (req, res) {
 
 app.post('/viewUser', (req, res) => {
 
-    console.log(req);
+    // console.log(req);
     var obj = req.body;
-    console.log(obj);
+    // console.log(obj);
     User.findOne({
         email: req.body.email
     }, async function (err, user) {
@@ -130,9 +131,9 @@ app.post('/viewUser', (req, res) => {
 
 app.post('/update_mark', (req, res) => {
 
-    console.log(req);
+    // console.log(req);
     var obj = req.body;
-    console.log(obj);
+    // console.log(obj);
     query={
         roll_num:obj.roll_num
     }
@@ -148,9 +149,9 @@ app.post('/update_mark', (req, res) => {
 
 app.post('/update_quiz_id', (req, res) => {
 
-    console.log(req);
+    // console.log(req);
     var obj = req.body;
-    console.log(obj);
+    // console.log(obj);
     query={
         roll_num:obj.roll_num
     }
@@ -166,11 +167,11 @@ app.post('/update_quiz_id', (req, res) => {
 
 app.post('/add_question', (req, res) => {
 
-    console.log(req);
+    // console.log(req);
     var obj = req.body;
-    console.log(obj);
+    // console.log(obj);
     question.create(obj).then((doc) => {
-        console.log(doc);
+        // console.log(doc);
         res.status(200).send({
             data: doc,
             message:"question addded succesfully"
@@ -185,9 +186,9 @@ app.post('/add_question', (req, res) => {
 
 app.post('/getAllQuestions', (req, res) => {
 
-    console.log(req);
+    // console.log(req);
     var obj = req.body;
-    console.log(obj);
+    // console.log(obj);
     question.find({
         quiz_id: obj.quiz_id
     }, async function (err, questions) {
@@ -195,7 +196,7 @@ app.post('/getAllQuestions', (req, res) => {
         if (err) return res.status(500).send({
             message: err.toString()
         });
-        if (!questions) return res.status(400).send({
+        if (sizeof(questions)==0) return res.status(400).send({
             message: 'Invalid quiz id'
         });
 

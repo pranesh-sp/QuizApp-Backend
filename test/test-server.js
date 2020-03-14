@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 const app = require('../server');
 let should = chai.should();
 
-describe('/POST ', () => {
+describe('/POST addQuestion ', () => {
     it('it should return success message after posting', (done) => {
        
 
@@ -18,24 +18,53 @@ describe('/POST ', () => {
             option_2:"best thing?",
             option_3:"best thing?",
             option_4:"best thing?",
-            answer:"1"
+            answer:"1",
             
         }
       chai.request(app)
           .post('/add_question')
           .send(ques)
           .end((err, res) => {
-                // res.should.have.status(200);
+                res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('message')
                 
             done();
           });
+          
     });
+
+
 
 });
 
 
+
+describe('/POST getAllQuestions  ', () => {
+    it('should return error when invalid quiz id is passed', (done) => {
+       
+
+        qid= {
+            quiz_id :"4",
+         
+            
+        }
+      chai.request(app)
+          .post('/getAllQuestions')
+          .send(qid)
+          .end((err, res) => {
+                res.should.have.status(400);
+                // res.body.should.be.a('object');
+                // res.body.should.have.property('message')
+                
+            done();
+          });
+          
+    });
+
+
+
+});
 
 
 
