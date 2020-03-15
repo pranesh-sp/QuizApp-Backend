@@ -8,6 +8,7 @@ var Course = require('./models/course.js');
 var admin = require('./models/admin.js');
 var question = require('./models/question.js');
 var sizeof = require('object-sizeof')
+var result = require('./models/result.js');
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -45,6 +46,24 @@ app.post('/add_course', (req, res) => {
     Course.create(obj).then((doc) => {
         // console.log(doc);
         res.status(200).send({
+            data: doc
+        });
+    }).catch((err) => {
+        res.status(500).send({
+            message: err.toString()
+        });
+    })
+
+});
+app.post('/add_result', (req, res) => {
+
+    // console.log(req);
+    var obj = req.body;
+    // console.log(obj);
+    result.create(obj).then((doc) => {
+        // console.log(doc);
+        res.status(200).send({
+            message:'score updated succesfully',
             data: doc
         });
     }).catch((err) => {
@@ -207,6 +226,82 @@ app.post('/getAllQuestions', (req, res) => {
     });
 
 });
+
+
+
+
+app.post('/getAllResultsByQuizID', (req, res) => {
+
+    // console.log(req);
+    var obj = req.body;
+    // console.log(obj);
+    result.find({
+        quiz_id: obj.quiz_id
+    }, async function (err, results) {
+        
+        if (err) return res.status(500).send({
+            message: err.toString()
+        });
+        if (sizeof(results)==0) return res.status(400).send({
+            message: 'Invalid quiz id'
+        });
+
+        if (results) {
+            var n=0;
+            result.find({
+                quiz_id: req.body.quiz_id
+
+            }).count(function(err, count){
+                
+                console.log("Number of questions: ", count );
+                res.status(200).send({
+                    data: results,
+                    number:count
+                });
+            }).catch(console.log);
+
+            
+        }
+    });
+
+});
+
+app.post('/getAllResultsByRollNum', (req, res) => {
+
+    // console.log(req);
+    var obj = req.body;
+    // console.log(obj);
+    result.find({
+        roll_num: obj.roll_num
+    }, async function (err, results) {
+        
+        if (err) return res.status(500).send({
+            message: err.toString()
+        });
+        if (sizeof(results)==0) return res.status(400).send({
+            message: 'Invalid quiz id'
+        });
+
+        if (results) {
+            var n=0;
+            result.find({
+                roll_num: req.body.roll_num
+
+            }).count(function(err, count){
+                
+                console.log("Number of questions: ", count );
+                res.status(200).send({
+                    data: results,
+                    number:count
+                });
+            }).catch(console.log);
+
+            
+        }
+    });
+
+});
+
 
     
     
