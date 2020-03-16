@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use(bodyParser.json());
-
+//test
 app.get('/', (req, res) => res.send({status:'200',
                                     message:'Quizapp Backend'}))
 
