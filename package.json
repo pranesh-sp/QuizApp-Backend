@@ -33,6 +33,6 @@
     "mocha": "^7.1.0",
     "should": "^13.2.3",
     "supertest": "^4.0.2",
-    "chai-http": "^2.0.1"
+    "chai-http": "^4.3.0"
   }
 }
